@@ -13,13 +13,12 @@ class CreateAsistenciaTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencia', function (Blueprint $table) {
-            $table->bigIncrements('codAsistencia');
+        Schema::create('asistencias', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->datetime('fecha_hora_entrada');
             $table->datetime('fecha_hora_salida');
 
-            $table->bigInteger('codEmpleado')->unsigned();
-            $table->foreign('codEmpleado')->references('codEmpleado')->on('empleado');
+            $table->integer('empleado_id');
             
             $table->timestamps();
         });
@@ -32,6 +31,6 @@ class CreateAsistenciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencia');
+        Schema::dropIfExists('asistencias');
     }
 }

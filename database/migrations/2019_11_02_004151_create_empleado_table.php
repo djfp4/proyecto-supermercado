@@ -13,8 +13,8 @@ class CreateEmpleadoTable extends Migration
      */
     public function up()
     {
-        Schema::create('empleado', function (Blueprint $table) {
-            $table->bigIncrements('codEmpleado');
+        Schema::create('empleados', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('paterno');
             $table->string('materno');
@@ -26,8 +26,7 @@ class CreateEmpleadoTable extends Migration
             $table->string('cargo');
             $table->integer('estado');
 
-            $table->bigInteger('codDepartamento')->unsigned();
-            $table->foreign('codDepartamento')->references('codDepartamento')->on('departamento');
+            $table->integer('departamento_id');
             
             $table->timestamps();
         });
@@ -40,6 +39,6 @@ class CreateEmpleadoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empleado');
+        Schema::dropIfExists('empleados');
     }
 }

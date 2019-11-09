@@ -13,14 +13,14 @@ class CreateCompraTable extends Migration
      */
     public function up()
     {
-        Schema::create('compra', function (Blueprint $table) {
-            $table->bigIncrements('codCompra');
+        Schema::create('compras', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->bigInteger('codUsuario')->unsigned();
-            $table->foreign('codUsuario')->references('codUsuario')->on('usuario');
-
-            $table->bigInteger('codProveedor')->unsigned();
-            $table->foreign('codProveedor')->references('codProveedor')->on('proveedor');
+            $table->integer('usuario_id');
+            $table->integer('proveedor_id');
+            $table->integer('lotes');
+            $table->integer('cant_x_lote');
+            $table->dateTime('fecha_hora_actual');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateCompraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compra');
+        Schema::dropIfExists('compras');
     }
 }

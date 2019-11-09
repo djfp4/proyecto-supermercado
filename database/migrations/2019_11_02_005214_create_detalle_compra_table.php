@@ -13,14 +13,11 @@ class CreateDetalleCompraTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalleCompra', function (Blueprint $table) {
-            $table->bigIncrements('codDetalleCompra');
+        Schema::create('compra_producto', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->bigInteger('codCompra')->unsigned();
-            $table->foreign('codCompra')->references('codCompra')->on('compra');  
-                      
-            $table->bigInteger('codProducto')->unsigned();
-            $table->foreign('codProducto')->references('codProducto')->on('producto');
+            $table->bigInteger('compra_id');                      
+            $table->bigInteger('producto_id');
 
             $table->timestamps();
         });

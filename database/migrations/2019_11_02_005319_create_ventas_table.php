@@ -13,14 +13,12 @@ class CreateVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('venta', function (Blueprint $table) {
-            $table->bigIncrements('codVenta');
+        Schema::create('cliente_usuario', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->bigInteger('codUsuario')->unsigned();
-            $table->foreign('codUsuario')->references('codUsuario')->on('usuario');
+            $table->bigInteger('usuario_id')->unsigned();
 
-            $table->bigInteger('codCliente')->unsigned();
-            $table->foreign('codCliente')->references('codCliente')->on('cliente');
+            $table->bigInteger('cliente_id')->unsigned();
             
             $table->integer('estado');
             $table->timestamps();
@@ -34,6 +32,6 @@ class CreateVentasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('cliente_usuario');
     }
 }

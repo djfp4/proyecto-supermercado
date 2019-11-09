@@ -13,8 +13,8 @@ class CreateProductoTable extends Migration
      */
     public function up()
     {
-        Schema::create('producto', function (Blueprint $table) {
-            $table->bigIncrements('codProducto');
+        Schema::create('productos', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nombre');
             $table->integer('lotes');
             $table->integer('cant_x_lote');
@@ -22,8 +22,7 @@ class CreateProductoTable extends Migration
             $table->integer('precio_venta');
             $table->integer('estado');
             
-            $table->bigInteger('codCategoria')->unsigned();
-            $table->foreign('codCategoria')->references('codCategoria')->on('categoria');
+            $table->bigInteger('categoria_id');
 
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ class CreateProductoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producto');
+        Schema::dropIfExists('productos');
     }
 }

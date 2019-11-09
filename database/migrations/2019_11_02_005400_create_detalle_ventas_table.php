@@ -13,14 +13,12 @@ class CreateDetalleVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalleVenta', function (Blueprint $table) {
-            $table->bigIncrements('codDetalleVenta');
+        Schema::create('producto_venta', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->bigInteger('codVenta')->unsigned();
-            $table->foreign('codVenta')->references('codVenta')->on('venta');
+            $table->bigInteger('venta_id')->unsigned();
 
-            $table->bigInteger('codProducto')->unsigned();
-            $table->foreign('codProducto')->references('codProducto')->on('producto');
+            $table->bigInteger('producto_id')->unsigned();
 
             $table->integer('cantidad');
             $table->timestamps();

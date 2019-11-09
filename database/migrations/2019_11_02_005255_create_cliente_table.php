@@ -13,13 +13,13 @@ class CreateClienteTable extends Migration
      */
     public function up()
     {
-        Schema::create('cliente', function (Blueprint $table) {
-            $table->bigIncrements('codCliente');
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('paterno');
             $table->string('materno');
             $table->string('ci_nit');
-            $table->string('nomUsuario');
+            $table->string('usuario_id');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateClienteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cliente');
+        Schema::dropIfExists('clientes');
     }
 }

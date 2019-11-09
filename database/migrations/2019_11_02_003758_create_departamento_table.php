@@ -13,8 +13,8 @@ class CreateDepartamentoTable extends Migration
      */
     public function up()
     {
-        Schema::create('departamento', function (Blueprint $table) {
-            $table->bigIncrements('codDepartamento');
+        Schema::create('departamentos', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('descripcion');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateDepartamentoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamento');
+        Schema::dropIfExists('departamentos');
     }
 }

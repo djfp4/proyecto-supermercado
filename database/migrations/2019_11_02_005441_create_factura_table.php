@@ -13,15 +13,13 @@ class CreateFacturaTable extends Migration
      */
     public function up()
     {
-        Schema::create('factura', function (Blueprint $table) {
-            $table->bigIncrements('numFactura');
+        Schema::create('cliente_venta', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->datetime('fecha_hora_actual');
 
-            $table->bigInteger('codVenta')->unsigned();
-            $table->foreign('codVenta')->references('codVenta')->on('venta');
+            $table->bigInteger('venta_id')->unsigned();
 
-            $table->bigInteger('codCliente')->unsigned();
-            $table->foreign('codCliente')->references('codCliente')->on('Cliente');
+            $table->bigInteger('cliente_id')->unsigned();
             
             $table->timestamps();
         });
@@ -34,6 +32,6 @@ class CreateFacturaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('factura');
+        Schema::dropIfExists('cliente_venta');
     }
 }

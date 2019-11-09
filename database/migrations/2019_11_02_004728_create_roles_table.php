@@ -13,8 +13,8 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('codRoles');
+        Schema::create('cargos', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('descripcion');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('cargos');
     }
 }

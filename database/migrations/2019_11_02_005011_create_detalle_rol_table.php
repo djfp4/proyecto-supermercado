@@ -13,14 +13,11 @@ class CreateDetalleRolTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalleRol', function (Blueprint $table) {
-            $table->bigIncrements('codDetalleRol');
+        Schema::create('cargo_usuario', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->bigInteger('codRoles')->unsigned();
-            $table->foreign('codRoles')->references('codRoles')->on('roles');
-
-            $table->bigInteger('codUsuario')->unsigned();
-            $table->foreign('codUsuario')->references('codUsuario')->on('usuario');
+            $table->integer('cargo_id');
+            $table->integer('usuario_id');
 
             $table->timestamps();
         });
@@ -33,6 +30,6 @@ class CreateDetalleRolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalleRol');
+        Schema::dropIfExists('cargo_usuario');
     }
 }
