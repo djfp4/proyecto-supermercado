@@ -49,7 +49,7 @@ class DepartamentosController extends Controller
 
         $departamento->update($request->all());
 
-        return redirect("empleados");
+        return redirect("/departamentos");
     }
 
     public function destroy($id)

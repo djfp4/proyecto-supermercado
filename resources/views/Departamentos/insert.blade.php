@@ -1,14 +1,14 @@
 @extends("../Layouts.plantilla")
 
 @section("cabecera")
-<h1>Esta es la cabecera</h1>
 @endsection
 
 @section("contenido")
+	<h1>Registro de departametos</h1>
 
 	<form action="/departamentos" method="post">
-		Nombre:<input type="text" name="nombre"><br>
-		Descripción:<textarea name="desc"></textarea><br>
+		Nombre:<input type="text" name="nombre" required=""><br>
+		Descripción:<textarea name="descripcion" required=""></textarea><br>
 		{{csrf_field()}}
 		<input type="submit" value="Guardar">
 	</form>

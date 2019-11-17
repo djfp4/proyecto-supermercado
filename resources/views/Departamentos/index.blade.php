@@ -6,7 +6,7 @@
 
 @section("contenido")
 
-	<table>
+	<table border="1">
 		<tr>
 			<td>Nombre</td><td>Descripción</td>
 		</tr>

@@ -1,5 +1,6 @@
 <?php
-
+use App\Departamento;
+use App\Empleado;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +18,13 @@ Route::get('/', function () {
 
 Route::resource('/departamentos','DepartamentosController');
 Route::resource('/empleados','EmpleadosController');
+Route::resource('/salarios','SalariosController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/departamento/{id}/empleado',function($id){
+
+	return Empleado::where('departamento_id', $id)->get();
+
+});

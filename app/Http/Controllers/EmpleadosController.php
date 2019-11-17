@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Departamento;
 use App\Empleado;
+use App\User;
 
 class EmpleadosController extends Controller
 {
     public function index()
     {
-        $empleado = Empleado::all();
+        $empleado = Empleado::select('empleados.id','empleados.nombre as emple','empleados.paterno','empleados.materno',
+        'empleados.fecha_nac','empleados.telefono','empleados.zona','empleados.avenida','empleados.nro','empleados.cargo','departamentos.nombre')
+        ->join('departamentos','empleados.departamento_id','=','departamentos.id')
+        ->get();
         return view ("Empleados.index", compact("empleado"));
     }
 
@@ -36,11 +40,15 @@ class EmpleadosController extends Controller
         $empleado->estado=1;
 
         $empleado->save();
+        return redirect('/empleados');
     }
 
     public function show($id)
     {
-        
+        $empleado = Empleado::findOrFail($id);
+        $departamento_ = Departamento::findOrFail($empleado->departamento_id);
+        $departamento = Departamento::all();
+        return view("Empleados.show",compact("empleado"));
     }
 
     public function edit($id)
@@ -57,6 +65,8 @@ class EmpleadosController extends Controller
         $empleado = Empleado::findOrFail($id);
 
         $empleado->update($request->all());
+
+        return redirect('/empleados');
     }
 
     /**

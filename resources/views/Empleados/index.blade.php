@@ -1,7 +1,7 @@
 @extends("../Layouts.plantilla")
 
 @section("cabecera")
-<h1>Esta es la cabecera</h1>
+<h1>Estos son los empleados</h1>
 @endsection
 
 @section("contenido")
@@ -16,12 +16,13 @@
 			<td>Avenida</td>
 			<td>Numero</td>
 			<td>Cargo</td>
+			<td>Departamento</td>
 		</tr>
 		
 		@foreach($empleado as $empleados)
 
 			<tr>
-				<td><a href="{{route('empleados.edit',$empleados->id)}}"> {{$empleados->nombre}}</a></td>
+				<td><a href="{{route('empleados.edit',$empleados->id)}}"> {{$empleados->emple}}</a></td>
 				<td>{{$empleados->paterno}}</td>
 				<td>{{$empleados->materno}}</td>
 				<td>{{$empleados->fecha_nac}}</td>
@@ -30,6 +31,7 @@
 				<td>{{$empleados->avenida}}</td>
 				<td>{{$empleados->nro}}</td>
 				<td>{{$empleados->cargo}}</td>
+				<td>{{$empleados->nombre}}</td>
 
 			</tr>
 

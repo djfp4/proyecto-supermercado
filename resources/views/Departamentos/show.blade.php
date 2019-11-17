@@ -6,18 +6,6 @@
 
 @section("contenido")
 
-	<table>
-		<tr>
-			<td>Nombre</td><td>Descripción</td>
-		</tr>
-		
-		<form action="/departamentos" method="post">
-		Nombre:<input type="text" name="nombre"><br>
-		Descripción:<textarea name="desc"></textarea><br>
-		{{csrf_field()}}
-		<input type="submit" value="Guardar">
-		</form>
-		
-	</table>
+	{{$user->Name}}
 
 @endsection

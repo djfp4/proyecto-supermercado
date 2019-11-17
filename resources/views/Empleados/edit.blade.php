@@ -8,15 +8,15 @@
 
 	<form action="/empleados/{{$empleado->id}}" method="post">
 		@method('PUT')
-		Nombre: <input type="text" name="nombre" value="{{$empleado->nombre}}"><br>
-		Apellido paterno: <input type="text" name="paterno" value="{{$empleado->paterno}}"><br>
-		Apellido materno: <input type="text" name="materno" value="{{$empleado->materno}}"><br>
-		Fecha de nacimiento: <input type="date" name="fecha_nac" value="{{$empleado->fecha_nac}}"><br>
-		Telefono/celular: <input type="text" name="telefono" value="{{$empleado->telefono}}"><br>
-		Zona: <input type="text" name="zona" value="{{$empleado->zona}}"><br>
-		Avenida/calle: <input type="text" name="avenida" value="{{$empleado->avenida}}"><br>
-		Nro: <input type="text" name="nro" value="{{$empleado->nro}}"><br>
-		Cargo: <input type="text" name="cargo" value="{{$empleado->cargo}}"><br>
+		Nombre: <input type="text" name="nombre" value="{{$empleado->nombre}}" required=""><br>
+		Apellido paterno: <input type="text" name="paterno" value="{{$empleado->paterno}}" required=""><br>
+		Apellido materno: <input type="text" name="materno" value="{{$empleado->materno}}" required=""><br>
+		Fecha de nacimiento: <input type="date" name="fecha_nac" value="{{$empleado->fecha_nac}}" required=""><br>
+		Telefono/celular: <input type="text" name="telefono" value="{{$empleado->telefono}}" required=""><br>
+		Zona: <input type="text" name="zona" value="{{$empleado->zona}}" required=""><br>
+		Avenida/calle: <input type="text" name="avenida" value="{{$empleado->avenida}}" required=""><br>
+		Nro: <input type="text" name="nro" value="{{$empleado->nro}}" required=""><br>
+		Cargo: <input type="text" name="cargo" value="{{$empleado->cargo}}" required=""><br>
 		Departamento: <select name="departamento_id">
 			<option value="{{$empleado->departamento_id}}" selected="{{$empleado->departamento_id}}">{{$departamento_nom->nombre}}</option>
 
