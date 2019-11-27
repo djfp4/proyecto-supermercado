@@ -9,6 +9,10 @@ use App\User;
 
 class EmpleadosController extends Controller
 {
+    public function __construct(){
+        $this->middleware("verificarCargo");
+    }
+
     public function index()
     {
         $empleado = Empleado::select('empleados.id','empleados.nombre as emple','empleados.paterno','empleados.materno',

@@ -1,28 +1,31 @@
 @extends("../Layouts.plantilla")
 
-@section("cabecera")
-<h1>Estos son los empleados</h1>
-@endsection
+
 
 @section("contenido")
+    <center><h1>Empleados</h1></center>
+<div class="container">
+	<table class="table table-striped">
 
-	<table border="1">
-		<tr>
-			<td>Nombre</td><td>Apellido paterno</td>
-			<td>Apelllido materno</td>
-			<td>Fecha de nacimiento</td>
-			<td>Telefono</td>
-			<td>Zona</td>
-			<td>Avenida</td>
-			<td>Numero</td>
-			<td>Cargo</td>
-			<td>Departamento</td>
-		</tr>
-		
+		<thead>
+			<tr>
+				<th>Nombre</th><th>Apellido paterno</th>
+				<th>Apelllido materno</th>
+				<th>Fecha de nacimiento</th>
+				<th>Telefono</th>
+				<th>Zona</th>
+				<th>Avenida</th>
+				<th>Numero</th>
+				<th>Cargo</th>
+				<th>Departamento</th>
+				<th>Editar</th>
+			</tr>
+		</thead>
+		<tbody>
 		@foreach($empleado as $empleados)
 
 			<tr>
-				<td><a href="{{route('empleados.edit',$empleados->id)}}"> {{$empleados->emple}}</a></td>
+				<td>{{$empleados->emple}}</td>
 				<td>{{$empleados->paterno}}</td>
 				<td>{{$empleados->materno}}</td>
 				<td>{{$empleados->fecha_nac}}</td>
@@ -32,10 +35,14 @@
 				<td>{{$empleados->nro}}</td>
 				<td>{{$empleados->cargo}}</td>
 				<td>{{$empleados->nombre}}</td>
+				<td><a href="{{route('empleados.edit',$empleados->id)}}" class="btn btn-info"> </a></td>
 
 			</tr>
 
 		@endforeach
+		</tbody>
 	</table>
+</div>
 
+ 
 @endsection

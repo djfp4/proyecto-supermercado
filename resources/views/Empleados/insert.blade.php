@@ -1,31 +1,50 @@
 @extends("../Layouts.plantilla")
 
 @section("cabecera")
-<h1>Esta es la cabecera</h1>
 @endsection
 
 @section("contenido")
+<div class="container">
+	<center><h1>Registro de empleados</h1></center>
+	<hr>
 
 	<form action="/empleados" method="post">
-		Nombre: <input type="text" name="nombre" required=""><br>
-		Apellido paterno: <input type="text" name="paterno" required=""><br>
-		Apellido materno: <input type="text" name="materno" required=""><br>
-		Fecha de nacimiento: <input type="date" name="fecha_nac" required=""><br>
-		Telefono/celular: <input type="text" name="telefono" required=""><br>
-		Zona: <input type="text" name="zona"><br>
-		Avenida/calle: <input type="text" name="avenida" required=""><br>
-		Nro: <input type="text" name="nro" required=""><br>
-		Cargo: <input type="text" name="cargo" required=""><br>
-		Departamento: <select name="departamento_id"><br>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Nombre</label><input type="text" name="nombre" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Apellido paterno</label> <input type="text" name="paterno" class="form-control col-md-4 " required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Apellido materno</label> <input type="text" name="materno" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label> <input type="date" name="fecha_nac" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Telefono/celular</label> <input type="text" name="telefono" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Zona</label> <input type="text" name="zona" class="form-control col-md-4"></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Avenida/calle</label> <input type="text" name="avenida" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Nro</label> <input type="text" name="nro" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Cargo</label> <input type="text" name="cargo" class="form-control col-md-4" required=""></div>
+		<div class="form-group row">
+		<label class="col-md-4 col-form-label text-md-right">Departamento</label> <select name="departamento_id" class="form-control col-md-4 selectpicker" data-live-search="true">
 			@foreach($departamento as $departamentos)
 
 				<option value="{{$departamentos->id}}">{{$departamentos->nombre}}</option>
 
 			@endforeach
-		</select><br>
+		</select></div>
 		{{csrf_field()}}
-		<input type="submit" name="registrar" value="Registrar"> <input type="reset" name="reset" value="Borrar campos">
+		<hr>
+		<div class="form-group row">
+			<div class="col-md-8 offset-md-4 ">
+				<input type="submit" name="registrar" value="Registrar" class="btn btn-primary">
+			
+		 		<input type="reset" name="reset" value="Borrar campos" class="btn btn-danger">
+		 	</div>
+		</div>
 	</form>
-	
+	</div>
 
 @endsection

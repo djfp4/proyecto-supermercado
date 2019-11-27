@@ -13,7 +13,7 @@ class User extends Authenticatable
     //protected $table = "usuarios";
 
     protected $fillable = [
-        'name', 'email', 'password', 'empleado_id', 
+        'name', 'password', 'empleado_id', 'cargo_id', 
     ];
 
     protected $hidden = [
@@ -23,4 +23,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cargo(){
+        return $this->belongsTo('App\Cargo');
+    }
+
+    public function verificarCargo(){
+        switch ($this->cargo->descripcion) {
+            case 'Administrador':
+                    return 1;
+                break;
+            case 'Cajero':
+                    return 2;
+                break;
+            case 'Gerente':
+                    return 3;
+                break;
+            default:
+                return 0;
+                break;
+        }
+
+    }
 }
