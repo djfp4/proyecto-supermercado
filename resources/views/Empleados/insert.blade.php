@@ -26,12 +26,10 @@
 		<div class="form-group row">
 		<label class="col-md-4 col-form-label text-md-right">Nro</label> <input type="text" name="nro" class="form-control col-md-4" required=""></div>
 		<div class="form-group row">
-		<label class="col-md-4 col-form-label text-md-right">Cargo</label> <input type="text" name="cargo" class="form-control col-md-4" required=""></div>
-		<div class="form-group row">
-		<label class="col-md-4 col-form-label text-md-right">Departamento</label> <select name="departamento_id" class="form-control col-md-4 selectpicker" data-live-search="true">
-			@foreach($departamento as $departamentos)
+		<label class="col-md-4 col-form-label text-md-right">Cargo</label> <select name="departamento_id" class="form-control col-md-4 selectpicker" data-live-search="true">
+			@foreach($puesto as $puestos)
 
-				<option value="{{$departamentos->id}}">{{$departamentos->nombre}}</option>
+				<option value="{{$puestos->id}}">{{$puestos->nombre}}</option>
 
 			@endforeach
 		</select></div>

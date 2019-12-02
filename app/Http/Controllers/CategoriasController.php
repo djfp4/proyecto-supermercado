@@ -15,7 +15,8 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        //
+        $categoria = Categoria::all();
+        return view("categorias.index", compact("categoria"));
     }
 
     /**
@@ -62,7 +63,8 @@ class CategoriasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view("categorias.edit", compact("categoria"));
     }
 
     /**
@@ -74,7 +76,10 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->update($request->all());
+
+        return redirect("categorias");
     }
 
     /**

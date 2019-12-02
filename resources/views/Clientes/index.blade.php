@@ -15,6 +15,7 @@
 				<th>CI/NIT</th>
 
 				<th>Editar</th>
+				<th>Eliminar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,8 +28,9 @@
 				<td>{{$clientes->ci_nit}}</td>
 
 				<td><a href="{{route('clientes.edit',$clientes->id)}}" class="btn btn-info"><img src="{{asset('images/editar.png')}}" width="25px" height="25px"> </a></td>
-
-			</tr>
+				
+				<td><a href="" data-target="#modal-delete-{{$clientes->id}}" data-toggle="modal"><button class="btn btn-danger"><img src="{{asset('images/eliminar.png')}}" width="25px" height="25px"> </button></a></td>
+			</tr>@include('clientes.modal')
 
 		@endforeach
 		</tbody>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Departamento;
 use App\Empleado;
 use App\User;
+use App\Puesto;
 
 class EmpleadosController extends Controller
 {
@@ -24,8 +25,8 @@ class EmpleadosController extends Controller
 
     public function create()
     {
-        $departamento = Departamento::all();
-        return view("Empleados.insert",compact("departamento"));
+        $puesto = Puesto::all();
+        return view("Empleados.insert",compact("puesto"));
     }
 
     public function store(Request $request)

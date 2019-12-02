@@ -15,7 +15,9 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::all();
+        $cliente = Cliente::select("id","nombre","paterno","materno","ci_nit")
+        ->where("estado",1)
+        ->get();
         return view("clientes.index",compact("cliente"));
     }
 
@@ -42,9 +44,12 @@ class ClientesController extends Controller
         $cliente->paterno=$request->paterno;
         $cliente->materno=$request->materno;
         $cliente->ci_nit=$request->ci_nit;
-        $cliente->usuario_id=$request->usuario_id;
+        $cliente->usuario_id=auth()->id();
+        $cliente->estado=1;
 
         $cliente->save();
+
+        return redirect("ventas/create");
     }
 
     /**
@@ -92,6 +97,9 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $cliente->estado = 0; 
+        $cliente->update();
+        return redirect("clientes");
     }
 }

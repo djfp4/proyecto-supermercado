@@ -18,8 +18,7 @@
 		<div class="form-group row">
 		<label class="col-md-4 col-form-label text-md-right">CI o NIT</label> <input type="text" name="ci_nit" class="form-control col-md-4" required=""></div>
 		<div class="form-group row">
-		<label class="col-md-4 col-form-label text-md-right">Usuario</label> <input type="text" name="usuario_id" class="form-control col-md-4" required="" value="{{auth()->id()
-}}"></div>
+		<label class="col-md-4 col-form-label text-md-right">Usuario</label> <input type="text" name="usuario_id" class="form-control col-md-4" required="" value="{{auth()->id()}}"></div>
 		
 		
 		{{csrf_field()}}

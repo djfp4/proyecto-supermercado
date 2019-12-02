@@ -20,17 +20,18 @@
   }
 </script>
 	<div class="container">
-		<center><h1>Asistencia</h1></center>
+		<center><h1>Entrada</h1></center>
 		<hr>
 		<form action="/asistencias" method="post">
 			<div class="form-group row">
-			<label class="col-md-4 col-form-label text-md-right">ID de empleado</label><input type="text" name="empleado_id" required="" class="form-control col-md-4" onkeypress="return validar(event)">
+			<label class="col-md-4 col-form-label text-md-right">Carnet de indentidad</label>
+			<input type="text" name="ci_nit" required="" class="form-control col-md-4" onkeypress="return validar(event)">
 		</div>
 		<hr>
 			{{csrf_field()}}
 			<div class="form-group row">
 				<div class="col-md-8 offset-md-4 ">
-					<input type="submit" value="Guardar" class="btn btn-primary col-md-3">
+					<input type="submit" value="Guardar" class="btn btn-outline-primary col-md-3">
 					<input type="reset" value="Borrar campos" class="btn btn-danger col-md-3">
 				</div>
 			</div>

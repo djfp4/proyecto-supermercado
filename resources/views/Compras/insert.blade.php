@@ -54,6 +54,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Precio de compra</label>
+                            <div class="col-md-6">
+                                <input id="precio_compra" type="number" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Precio de venta</label>
+                            <div class="col-md-6">
+                                <input id="precio_venta" type="number" class="form-control">
+                            </div>
+                        </div>
+
                         <div class="form-group row" id="comprar">
                             <div class="col-md-12 offset-md-12">
                                 <button type="button" class="btn btn-success btn-block" id="agregar">Agregar Fila</button>
@@ -63,15 +77,18 @@
                         <table class="table table-striped" id="tablacompra">
                             <thead style="background-color: #24CDBD; color: #fff;">
                          
-                                <th>Proveedor</th>
                                 <th>Producto</th>
                                 <th>Lotes</th>
                                 <th>Cantidad por lote</th>
+                                <th>Precio de compra</th>
+                                <th>Precio de venta</th>
+                                <th>Subtotal</th>
                                 <th>Opciones</th>
                             </thead>
                             <tfoot>
                                 <tr>
-                                   
+                                    <td colspan="6"><h3>Total</h3></td>
+                                    <td><h3 id="total">0.00</h3></td>
                                 </tr>
                             </tfoot>
                                 
@@ -79,12 +96,11 @@
                         </table>
 
 
-                        <div class="form-group row" id="comprar">
+                        <div class="form-group row" id="guardar">
                             <div class="col-md-12 offset-md-12">
                                 <button type="submit" class="btn btn-primary btn-block">
                                     Comprar
                                 </button>
-
                             </div>
                         </div>
                     </form>
@@ -112,19 +128,23 @@
     proveedor=$("#proveedor_id option:selected").text();
     idproducto=$("#producto_id").val();
     producto=$("#producto_id option:selected").text();
-    cantidad=$("#cant_x_lote").val();
+    cant_x_lote=$("#cant_x_lote").val();
     lotes=$("#lotes").val();
+    precio_compra=$("#precio_compra").val();
+    precio_venta=$("#precio_venta").val();
 
-    if (idproveedor!="" && cantidad!="" && cantidad>0 && lotes!="" && lotes>0 && idproducto!="")
+    if (idproveedor!="" && cant_x_lote!="" && cant_x_lote>0 && lotes!="" && lotes>0 && idproducto!="" && precio_compra!="" && precio_compra>0 && precio_venta!="" && precio_venta>0)
     {
-       /*subtotal[cont]=(cantidad*precio_compra);
-       total=total+subtotal[cont];*/
+       subtotal[cont]=(cant_x_lote * lotes * precio_compra);
+       total=total+subtotal[cont];
 
-       var fila='<tr class="selected" id="fila'+cont+'"><td><input type="hidden" name="idproveedor[]" value="'+idproveedor+'" class="form-control">'+proveedor+'</td><td><input type="hidden" name="idproducto[]" class="form-control" value="'+idproducto+'">'+producto+'</td><td><input type="number" class="form-control" name="lotes[]" value="'+lotes+'"></td><td><input type="number" class="form-control" name="cantidad[]" value="'+cantidad+'"></td><td><button type="button" class="btn btn-warning btn-block" onclick="eliminar('+cont+');">X</button></td></tr>';
+       var fila='<tr class="selected" id="fila'+cont+'"><td><input type="hidden" name="idproveedor[]" value="'+idproveedor+'" class="form-control"><input type="hidden" name="idproducto[]" class="form-control" value="'+idproducto+'">'+producto+'</td><td><input type="number" class="form-control" name="lotes[]" value="'+lotes+'"></td><td><input type="number" class="form-control" name="cant_x_lote[]" value="'+cant_x_lote+'"></td><td><input type="number" class="form-control" name="precio_compra[]" value="'+precio_compra+'"></td><td><input type="number" class="form-control" name="precio_venta[]" value="'+precio_venta+'"></td><td>'+subtotal[cont]+'</td><td><button type="button" class="btn btn-danger btn-block" onclick="eliminar('+cont+');">X</button></td></tr>';
        cont++;
        limpiar();
+       $("#total").html(total);
        evaluar();
        $('#tablacompra').append(fila);
+       
 
     }
     else
@@ -136,11 +156,13 @@
   function limpiar(){
     $("#lotes").val("");
     $("#cant_x_lote").val("");
+    $("#precio_compra").val("");
+    $("#precio_venta").val("");
   }
 
   function evaluar()
   {
-    if (total>0)
+    if (parseInt(total)>0)
     {
       $("#guardar").show();
     }

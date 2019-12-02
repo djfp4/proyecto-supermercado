@@ -7,6 +7,8 @@ use App\Compra;
 use App\Proveedor;
 use App\Producto;
 use App\Detallecompra;
+use App\User;
+use DB;
 
 
 class ComprasController extends Controller
@@ -19,7 +21,11 @@ class ComprasController extends Controller
 
     public function index()
     {
-        //
+        $compra = Compra::select("compras.id","users.name","proveedores.nombre","compras.fecha_hora_actual")
+        ->join("proveedores","compras.proveedor_id","=","proveedores.id")
+        ->join("users","compras.usuario_id","=","users.id")
+        ->get();
+        return view("Compras.index",compact("compra"));
     }
 
     /**
@@ -40,20 +46,6 @@ class ComprasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function compra(Request $request){
-        $compras = Compra::all();
-        if (!$compras) {
-            $id = $compras->last()->id;
-            $id++;
-        }
-        else{
-            $id=1;
-        }
-        
-        $producto = Producto::all();
-        $compra=['usuario_id'=>$request->usuario_id,'proveedor_id'=>$request->proveedor_id,'id'=>$id];
-        return view("detalleCompras.insert", compact("compra","producto"));
-    }
 
     public function store(Request $request)
     {
@@ -69,7 +61,9 @@ class ComprasController extends Controller
                 $idproducto=$request->get('idproducto');
                 $idproveedor=$request->get('idproveedor');
                 $lotes=$request->get('lotes');
-                $camtidad=$request->get('camtidad');
+                $cant_x_lote=$request->get('cant_x_lote');
+                $precio_compra=$request->get('precio_compra');
+                $precio_venta=$request->get('precio_venta');
 
                 $cont=0;
 
@@ -79,13 +73,15 @@ class ComprasController extends Controller
                     $detalleCompra->compra_id=$compra->id;
                     $detalleCompra->producto_id=$idproducto[$cont];
                     $detalleCompra->lotes=$lotes[$cont];
-                    $detalleCompra->cant_x_lote=$lotes[$cont];
+                    $detalleCompra->cant_x_lote=$cant_x_lote[$cont];
+                    $detalleCompra->precio_compra=$precio_compra[$cont];
+                    $detalleCompra->precio_venta=$precio_venta[$cont];
 
                     $detalleCompra->save();
                     $cont = $cont + 1;
                 }
         
-                
+                return redirect("productos");
 
             
         }
@@ -102,7 +98,18 @@ class ComprasController extends Controller
      */
     public function show($id)
     {
-        //
+        $detalleCompra = Detallecompra::select("detalleCompras.id","productos.nombre","detalleCompras.lotes","detalleCompras.cant_x_lote","detalleCompras.precio_compra","detalleCompras.precio_venta")
+        ->join("productos","productos.id","=","detalleCompras.producto_id")
+        ->where('detalleCompras.compra_id',$id)
+        ->get();
+
+        $subtotal = DB::table("detalleCompras")
+        ->select(DB::raw("sum(precio_compra*lotes*cant_x_lote) as subtotal"))
+        ->where("compra_id",$id)
+        ->groupBy("id")
+        ->get();
+
+        return view("compras.show", compact("detalleCompra","subtotal"));
     }
 
     /**
@@ -111,9 +118,37 @@ class ComprasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editAll($id)
     {
-        //
+        $detalleCompra = Detallecompra::select(
+            "detalleCompras.id as id",
+            "productos.nombre as producto",
+            "detalleCompras.lotes as lotes",
+            "detalleCompras.cant_x_lote as cant_x_lote",
+            "detalleCompras.precio_compra as precio_compra",
+            "detalleCompras.precio_venta as precio_venta",
+            "proveedores.nombre as proveedor",
+            "compras.proveedor_id as proveedor_id"
+        )
+        ->join("productos","productos.id","=","detalleCompras.producto_id")
+        ->join("compras","compras.id","=","detalleCompras.compra_id")
+        ->join("proveedores","proveedores.id","=","compras.proveedor_id")
+        ->where('detalleCompras.compra_id', $id)
+        ->get();
+
+        $compra = Compra::select("compras.id as c", "compras.proveedor_id", "proveedores.nombre")
+        ->join("proveedores","compras.proveedor_id","=","proveedores.id")
+        ->where("compras.id",$id)
+        ->first();
+        
+        $proveedor = Proveedor::all();
+        $producto = Producto::all();
+
+        return view("compras.edit" , compact("detalleCompra","proveedor","producto","compra"));
+    }
+
+    public function edit($id){
+
     }
 
     /**

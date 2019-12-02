@@ -6,7 +6,7 @@ use App\User;
 
 Route::get('/', function () {
 
-	$user=Auth::user();
+	/*$user=Auth::user();
 
 	if (isset($user)!=null) {
 		if ($user->verificarCargo()==1) {
@@ -14,10 +14,10 @@ Route::get('/', function () {
 		}else{
 			echo "Eres cajero";
 		}
-	}
+	}*/
 	
 
-    return view('welcome');
+    return view('auth/login');
 });
 
 
@@ -31,6 +31,9 @@ Route::resource('/productos','ProductosController');
 Route::resource('/clientes','ClientesController');
 Route::resource('/proveedores','ProveedoresController');
 Route::resource('/compras','ComprasController');
+Route::resource('/ventas','VentasController');
+Route::resource('/puestos','PuestosController');
+Route::post('precio', 'VentasController@precio')->name('precio');
 
 
 Auth::routes();
