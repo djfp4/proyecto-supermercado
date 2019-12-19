@@ -1,12 +1,11 @@
 @extends("../Layouts.plantilla")
 
-@section("cabecera")
+@section("titulo")
+Registro de proveedores
 @endsection
 
 @section("contenido")
-<div class="container">
-	<center><h1>Registro de proveedores</h1></center>
-	<hr>
+
 
 	<form action="/proveedores" method="post">
 		<div class="form-group row">
@@ -20,12 +19,15 @@
 		<hr>
 		<div class="form-group row">
 			<div class="col-md-8 offset-md-4 ">
-				<input type="submit" name="registrar" value="Registrar" class="btn btn-primary">
+				<input type="submit" name="registrar" value="Registrar" class="btn btn-primary col-md-3">
 			
-		 		<input type="reset" name="reset" value="Borrar campos" class="btn btn-danger">
+		 		<input type="reset" name="reset" value="Borrar campos" class="btn btn-danger col-md-3">
 		 	</div>
 		</div>
 	</form>
-	</div>
+
+	<a href="{{route('compras.index')}}" class="btn btn-success offset-md-9 col-md-2">
+		Volver
+	</a>
 
 @endsection

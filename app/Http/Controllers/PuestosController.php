@@ -8,21 +8,18 @@ use App\Departamento;
 
 class PuestosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarVentas');
+    }
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $departamento = Departamento::all();
@@ -37,7 +34,13 @@ class PuestosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $puesto = new Puesto();
+        $puesto->cargo=$request->cargo;
+        $puesto->hora_entrada=$request->hora_entrada;
+        $puesto->hora_salida=$request->hora_salida;
+        $puesto->departamento_id=$request->departamento_id;
+        $puesto->save();
+        return redirect("empleados");
     }
 
     /**

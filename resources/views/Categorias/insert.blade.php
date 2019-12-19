@@ -1,12 +1,11 @@
 @extends("../Layouts.plantilla")
 
-@section("cabecera")
+@section("titulo")
+Registrar categoria
 @endsection
 
 @section("contenido")
-	<div class="container">
-		<center><h1>Agregar categoria</h1></center>
-		<hr>
+	
 		<form action="/categorias" method="post">
 			<div class="form-group row">
 			<label class="col-md-4 col-form-label text-md-right">Nombre</label><input type="text" name="nombre" required="" class="form-control col-md-4" autofocus="">
@@ -23,6 +22,8 @@
 				</div>
 			</div>
 		</form>
-	</div>
+
+		<a href="{{route('categorias.index')}}" class="btn btn-success offset-md-9 col-md-3">Volver</a>
+
 
 @endsection

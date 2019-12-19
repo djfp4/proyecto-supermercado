@@ -9,41 +9,32 @@ use App\Producto;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verificarCargo');
+        $this->middleware('verificarVentas');
+        $this->middleware('verificarRecursos');
+    }
     public function index()
     {
-        $producto = Producto::select('productos.id','productos.nombre as prod','productos.lotes', 'productos.cant_x_lote','productos.precio_compra','productos.precio_venta','categorias.nombre')
+        $producto = Producto::select('productos.id','productos.nombre as prod','productos.total', 'productos.cant_x_lote','productos.precio_compra','productos.precio_venta','categorias.nombre')
         ->join('categorias','productos.categoria_id','=','categorias.id')
+        ->where('estado',1)
         ->get();
         return view ("Productos.index", compact("producto"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categoria = Categoria::all();
         return view("productos.insert",compact("categoria"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $producto = new Producto();
         $producto->nombre=$request->nombre;
-        $producto->lotes=$request->lotes;
         $producto->cant_x_lote=$request->cant_x_lote;
         $producto->precio_compra=$request->precio_compra;
         $producto->precio_venta=$request->precio_venta;
@@ -51,26 +42,9 @@ class ProductosController extends Controller
         $producto->estado=1;
 
         $producto->save();
-        return redirect("\productos");
+        return redirect("/productos");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $producto=Producto::findOrFail($id);
@@ -79,13 +53,6 @@ class ProductosController extends Controller
         return view("productos.edit",compact("producto","categoria","categorias"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
@@ -94,14 +61,20 @@ class ProductosController extends Controller
         return redirect("/productos");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        $producto->estado=0;
+        $producto->update();
+
+        $compra = Compra::select("estado")
+        ->where("producto_id",$id)
+        ->get();
+        $cont=0;
+        while($cont<count($compra)){
+            $compra;
+        }
+
+        return redirect("/productos");    
     }
 }

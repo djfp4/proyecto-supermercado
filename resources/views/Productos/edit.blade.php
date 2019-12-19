@@ -1,19 +1,15 @@
 @extends("../Layouts.plantilla")
 
-@section("cabecera")
+@section("titulo")
+Editar producto
 @endsection
 
 @section("contenido")
-	<div class="container">
-		<center><h1>Editar producto</h1></center>
-		<hr>
+
 		<form action="/productos/{{$producto->id}}" method="post">
 			@method('PUT')
 			<div class="form-group row">
 			<label class="col-md-4 col-form-label text-md-right">Nombre</label><input type="text" name="nombre" value="{{$producto->nombre}}" required="" class="form-control col-md-4" autofocus="">
-			</div>
-			<div class="form-group row">
-			<label class="col-md-4 col-form-label text-md-right">Lotes</label><input type="text" name="lotes" value="{{$producto->lotes}}" required="" class="form-control col-md-4">
 			</div>
 			<div class="form-group row">
 			<label class="col-md-4 col-form-label text-md-right">Cantidad por lote</label><input type="text" name="cant_x_lote" value="{{$producto->cant_x_lote}}" required="" class="form-control col-md-4">
@@ -42,6 +38,6 @@
 				</div>
 			</div>
 		</form>
-	</div>
+
 
 @endsection

@@ -1,9 +1,9 @@
-@extends("../Layouts.plantilla")
-
-
-
+@extends("../Layouts.admin")
+@section('titulo')
+Clientes
+@endsection
 @section("contenido")
-    <center><h1>Clientes</h1></center>
+    
 <div class="container">
 	<table class="table table-striped">
 

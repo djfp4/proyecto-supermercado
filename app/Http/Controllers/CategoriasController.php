@@ -8,11 +8,13 @@ use App\Categoria;
 
 class CategoriasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarVentas');
+        $this->middleware('verificarRecursos');
+    }
     public function index()
     {
         $categoria = Categoria::all();
@@ -42,6 +44,8 @@ class CategoriasController extends Controller
         $categoria->descripcion=$request->descripcion;
 
         $categoria->save();
+
+        return redirect("categorias");
     }
 
     /**

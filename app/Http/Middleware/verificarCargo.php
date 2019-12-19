@@ -19,7 +19,7 @@ class verificarCargo
         $user=Auth::user();
 
         if (isset($user)!=null) {
-            if ($user->verificarCargo()!=1) {
+            if ($user->verificarCargo()==2) {
                 return redirect('/home'); 
             }
         }

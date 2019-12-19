@@ -8,6 +8,14 @@ use App\Empleado;
 
 class SalariosController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarVentas');
+    }
     public function index()
     {
         $salario = Salario::all();

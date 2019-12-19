@@ -7,9 +7,18 @@ use App\Departamento;
 
 class DepartamentosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarVentas');
+    }
     public function index()
     {
-        $departamento = Departamento::all();
+        $departamento = Departamento::select("nombre","descripcion","id")
+        ->where("estado",1)
+        ->get();
         return view ("Departamentos.index", compact("departamento"));
     }
 
@@ -23,6 +32,7 @@ class DepartamentosController extends Controller
         $departamento = new Departamento;
         $departamento->nombre=$request->nombre;
         $departamento->descripcion=$request->descripcion;
+        $departamento->estado=1;
 
         $departamento->save();
 
@@ -33,7 +43,7 @@ class DepartamentosController extends Controller
     {
         $departamento = Departamento::findOrFail($id);
 
-        return view("departamentos.show",compact("departamento"));
+        return view("departamentos.show", compact("departamento"));
     }
 
     public function edit($id)
@@ -55,9 +65,9 @@ class DepartamentosController extends Controller
     public function destroy($id)
     {
         $departamento = Departamento::findOrFail($id);
+        $departamento->estado = 0;
+        $departamento->update();
 
-        $departamento->delete();
-
-        return redirect("departamentos");
+        return redirect("/departamentos");
     }
 }

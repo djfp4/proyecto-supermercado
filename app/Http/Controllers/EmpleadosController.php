@@ -10,15 +10,20 @@ use App\Puesto;
 
 class EmpleadosController extends Controller
 {
-    public function __construct(){
-        $this->middleware("verificarCargo");
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verificarCargo');
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarVentas');
     }
 
     public function index()
     {
         $empleado = Empleado::select('empleados.id','empleados.nombre as emple','empleados.paterno','empleados.materno',
-        'empleados.fecha_nac','empleados.telefono','empleados.zona','empleados.avenida','empleados.nro','empleados.cargo','departamentos.nombre')
-        ->join('departamentos','empleados.departamento_id','=','departamentos.id')
+        'empleados.fecha_nac','empleados.ci_nit','empleados.telefono','empleados.zona','empleados.avenida','empleados.nro','puestos.cargo','salario')
+        ->join('puestos','empleados.puesto_id','=','puestos.id')
+        ->join('salarios','salarios.empleado_id','=','empleados.id')
         ->get();
         return view ("Empleados.index", compact("empleado"));
     }
@@ -58,11 +63,11 @@ class EmpleadosController extends Controller
 
     public function edit($id)
     {
-        $departamento = Departamento::all();
+        $puesto = Puesto::all();
         $empleado = Empleado::findOrFail($id);
-        $departamento_nom = Departamento::findOrFail($empleado->departamento_id);
+        $puesto_nom = Puesto::findOrFail($empleado->puesto_id);
 
-        return view("empleados.edit",compact("empleado","departamento","departamento_nom"));
+        return view("empleados.edit", compact("empleado","puesto","puesto_nom"));
     }
 
     public function update(Request $request, $id)

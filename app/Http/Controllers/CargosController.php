@@ -7,6 +7,13 @@ use App\Cargo;
 
 class CargosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarVentas');
+    }
     public function index()
     {
         $cargo = Cargo::All();

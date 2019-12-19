@@ -31,9 +31,20 @@ Route::resource('/productos','ProductosController');
 Route::resource('/clientes','ClientesController');
 Route::resource('/proveedores','ProveedoresController');
 Route::resource('/compras','ComprasController');
+Route::get('/compras-proveedor','ComprasController@proveedor')->name('compras.nuevo');
+
 Route::resource('/ventas','VentasController');
+Route::get('descargar-factura/{id}','VentasController@factura')->name('ventas.pdf');
+Route::get('descargar-compra','ComprasController@reporte')->name('compras.pdf');
+Route::get('descargar','ComprasController@reporteDetalle')->name('compras.pdfDetalle');
 Route::resource('/puestos','PuestosController');
 Route::post('precio', 'VentasController@precio')->name('precio');
+Route::post('cantidad', 'ComprasController@cantidad')->name('cantidad');
+Route::post('total', 'ComprasController@total')->name('total');
+Route::get('usuarios',"Auth\RegisterController@index")->name('usuarios.index');
+
+Route::get('usuarios/{id}/edit',"Auth\RegisterController@edit")->name('usuarios.edit');
+Route::put('usuarios/{id}',"Auth\RegisterController@update")->name('usuarios.update');
 
 
 Auth::routes();

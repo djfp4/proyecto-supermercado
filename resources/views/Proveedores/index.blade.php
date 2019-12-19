@@ -1,10 +1,8 @@
 @extends("../Layouts.plantilla")
-
-
-
+@section("titulo")
+Proveedores
+@endsection
 @section("contenido")
-    <center><h1>Proveedores</h1></center>
-<div class="container">
 	<table class="table table-striped">
 
 		<thead>
@@ -29,7 +27,7 @@
 		@endforeach
 		</tbody>
 	</table>
-</div>
+	<a href="{{route('compras.index')}}" class="btn btn-success offset-md-9 col-md-2">Volver</a>
 
- 
+
 @endsection

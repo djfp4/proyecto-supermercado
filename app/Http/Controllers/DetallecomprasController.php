@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class DetallecomprasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarVentas');
+        $this->middleware('verificarRecursos');
+    }
     /**
      * Display a listing of the resource.
      *

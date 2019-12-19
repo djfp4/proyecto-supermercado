@@ -8,11 +8,13 @@ use App\Proveedor;
 
 class ProveedoresController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarVentas');
+        $this->middleware('verificarRecursos');
+    }
     public function index()
     {
         $proveedor = Proveedor::all();

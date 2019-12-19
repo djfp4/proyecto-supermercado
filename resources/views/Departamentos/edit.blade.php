@@ -1,4 +1,4 @@
-@extends("../Layouts.plantilla")
+@extends("../Layouts.admin")
 
 @section("cabecera")
 <h1>Esta es la cabecera</h1>
@@ -6,12 +6,23 @@
 
 @section("contenido")
 	
+	
 		<form action="/departamentos/{{$departamento->id}}" method="post">
 			@method('PUT')
-		Nombre:<input type="text" name="nombre" value="{{$departamento->nombre}}" required=""><br>
-		Descripción:<br><textarea name="descripcion" rows="5" cols="50" required="">{{$departamento->descripcion}}</textarea><br>
+			<div class="form-group row">
+				<label class="col-md-4 col-form-label text-md-right">Nombre</label>
+				<input type="text" class="form-control col-md-4" name="nombre" value="{{$departamento->nombre}}" required="">
+			</div>
+			<div class="form-group row">
+				<label class="col-md-4 col-form-label text-md-right">Descripción</label>
+				<input type="text" value="{{$departamento->descripcion}}" class="form-control col-md-6" name="descripcion" required="">
+			</div>
 		{{csrf_field()}}
-		<input type="submit" value="Guardar">
+			<div class="form-group row">
+				<div class="col-md-4 offset-md-4 ">
+					<input type="submit" class="btn btn-primary btn-block" value="Guardar">
+				</div>
+			</div>
 		</form>
-		
+	
 @endsection

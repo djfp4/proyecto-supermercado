@@ -1,10 +1,12 @@
 @extends("../Layouts.plantilla")
-
-
-
+@section("titulo")
+Categorias
+@endsection
 @section("contenido")
-    <center><h1>Categorias</h1></center>
-		<div class="container">
+
+<a href="{{route('categorias.create')}}" class="btn btn-info">Nueva categoria</a>
+<hr>
+ 
 			<table class="table table-striped">
 
 				<thead>
@@ -29,7 +31,5 @@
 				@endforeach
 				</tbody>
 			</table>
-		</div>
 
- 
 @endsection

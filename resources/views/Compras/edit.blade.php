@@ -1,85 +1,51 @@
 @extends('layouts.plantilla')
 
+@section('titulo')
+Editar compra
+@endsection
 @section('contenido')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Editar compra</div>
-
-                <div class="card-body">
-                    <form method="post" action="/compras/{{$compra->c}}">
+  <form method="post" action="/compras/{{$producto->id}}">
                         @csrf
-
-
-                        
-
+                        @method('put')
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Proveedor</label>
-                            <div class="col-md-6">
-                                <select id="proveedor_id" name="proveedor_id" class="form-control selectpicker" data-live-search="true">
-                                  <option selected="" value="{{$compra->proveedor_id}}">
-                                    {{$compra->nombre}}
-                                  </option>
-                                    @foreach($proveedor as $proveedores)
-                                        <option value="{{$proveedores->id}}">{{$proveedores->nombre}}</option>
-                                    @endforeach
-                                </select>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Producto</label>
+                            <div class="col-md-4">
+                                <input type="text" name="producto_id" hidden="" value="{{$producto->producto_id}}">
+                                <input type="text" name="" value="{{$producto->nombre}}" readonly="" class="form-control">
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Lotes</label>
+                            <div class="col-md-4">
+                                <input type="number" value="{{$producto->lotes}}" hidden="" name="dlotes" autofocus="">
+                                <input type="number" class="form-control" value="{{$producto->lotes}}" required="" name="lotes" autofocus="">
+                            </div>
+                        </div>
 
-                        <table class="table table-striped" id="tablacompra">
-                            <thead style="background-color: #24CDBD; color: #fff;">
-                         
-                                <th>Producto</th>
-                                <th>Lotes</th>
-                                <th>Cantidad por lote</th>
-                                <th>Precio de compra</th>
-                                <th>Precio de venta</th>
-                                <th>Subtotal</th>
-                                <th>Opciones</th>
-                            </thead>
-                            <tbody>
-                              @foreach($detalleCompra as $detalleCompras)
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Precio de compra</label>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control" value="{{$producto->precio_compra}}" required="" name="precio_compra">
+                            </div>
+                        </div>
 
-                              <tr class="selected" id="fila'+cont+'">
-                                <td><input type="hidden" name="idproveedor[]" value="{{$detalleCompras->proveedor}}" class="form-control">
-                                  <select name="idproducto[]" class="form-control">
-                                    <option selected="" value="{{$detalleCompras->producto_id}}">{{$detalleCompras->producto}}
-                                    </option>
-                                    @foreach($producto as $productos)
-                                      <option value="{{$productos->id}}">{{$productos->nombre}}</option>
-                                    @endforeach
-                                  </selct>
-                                </td>
-                                <td><input type="number" class="form-control" name="lotes[]" value="{{$detalleCompras->lotes}}"></td>
-                                <td><input type="number" class="form-control" name="cant_x_lote[]" value="{{$detalleCompras->cant_x_lote}}"></td>
-                                <td><input type="number" class="form-control" name="precio_compra[]" value="{{$detalleCompras->precio_compra}}"></td>
-                                <td><input type="number" class="form-control" name="precio_venta[]" value="{{$detalleCompras->precio_venta}}"></td>
-                                <td><label id="subtotal"></label></td>
-                                <td><a href="#" class="btn btn-danger">Eliminar</a></td>
-                              </tr>
-
-                              @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="6"><h3>Total</h3></td>
-                                    <td><h3 id="total">0.00</h3></td>
-                                </tr>
-                            </tfoot>
-                                
-                            
-                        </table>
-
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Precio de venta</label>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control" value="{{$producto->precio_venta}}" required="" name="precio_venta">
+                            </div>
+                        </div>
 
                         <div class="form-group row" id="comprar">
-                            <div class="col-md-12 offset-md-12">
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    Comprar
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar cambios
                                 </button>
-
+                                <a href="{{route('compras.show', $producto->id)}}" class="btn btn-danger col-md-3">
+                                    Volver
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -88,33 +54,5 @@
         </div>
     </div>
 </div>
-@push('scripts')
 
-         <script>
-           $(document).ready(function(){
-          sumar();
-       });
-
-  total=0;
-  subtotal=[];
-
-  function sumar(){
-
-    cant_x_lote=$("#cant_x_lote").val();
-    lotes=$("#lotes").val();
-    precio_compra=$("#precio_compra").val();
-    filas=$("#tablacompra").length;
-
-       
-       for (var i = 0; i < filas; i++) {
-         subtotal[i]=(cant_x_lote[i] * lotes[i] * precio_compra[i]);
-         total=total+subtotal[i];
-       }
-
-       $("#total").html(total);
-       
-  }
-         </script>
-
-@endpush
 @endsection

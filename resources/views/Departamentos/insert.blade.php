@@ -1,20 +1,30 @@
-@extends("../Layouts.plantilla")
+@extends("../Layouts.admin")
 
-@section("cabecera")
+@section("titulo")
+Registro de departamentos
 @endsection
 
 @section("contenido")
-	<h1>Registro de departametos</h1>
+	
 
 	<form action="/departamentos" method="post">
-		<div class="col-md-6">
-		Nombre:<input type="text" name="nombre" required="" class="form-control"><br>
-	</div>
-	<div class="col-md-6">
-		Descripción:<textarea name="descripcion" required="" class="form-control"></textarea><br>
-	</div>
+			<div class="form-group row">
+				<label class="col-md-4 col-form-label text-md-right">Nombre</label>
+				<input type="text" class="form-control col-md-4" name="nombre" required="">
+			</div>
+			<div class="form-group row">
+				<label class="col-md-4 col-form-label text-md-right">Descripción</label>
+				<input type="text" class="form-control col-md-4" name="descripcion" required="">
+					
+			</div>
 		{{csrf_field()}}
-		<input type="submit" value="Guardar" class="btn btn-primary">
-	</form>
+			<div class="form-group row">
+				<div class="col-md-8 offset-md-3 ">
+					<input type="submit" class="btn btn-primary col-md-4" value="Guardar">
+					<input type="reset" class="btn btn-danger col-md-4" value="Borrar">
+				</div>
+			</div>
+			<a href="{{route('departamentos.index')}}" class="btn btn-success offset-md-9 col-md-3">Volver</a>
+		</form>
 
 @endsection

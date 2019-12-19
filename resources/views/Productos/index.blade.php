@@ -1,16 +1,17 @@
 @extends("../Layouts.plantilla")
-
-
-
+@section("titulo")
+Productos
+@endsection
 @section("contenido")
-    <center><h1>Productos</h1></center>
-<div class="container">
+<a href="{{route('productos.create')}}" class=" btn btn-info">Nuevo producto</a>
+<a href="{{route('categorias.index')}}" class=" btn btn-info">Listado de categorias</a>
+<hr>
 	<table class="table table-striped">
 
 		<thead>
 			<tr>
 				<th>Nombre</th>
-				<th>Lotes</th>
+				<th>Total</th>
 				<th>Cantidad por lote</th>
 				<th>Precio de compra</th>
 				<th>Precio de venta</th>
@@ -24,10 +25,10 @@
 
 			<tr>
 				<td>{{$productos->prod}}</td>
-				<td>{{$productos->lotes}}</td>
+				<td>{{$productos->total}}</td>
 				<td>{{$productos->cant_x_lote}}</td>
-				<td>{{$productos->precio_compra}}</td>
-				<td>{{$productos->precio_venta}}</td>
+				<td>{{$productos->precio_compra}} Bs.</td>
+				<td>{{$productos->precio_venta}} Bs.</td>
 
 				<td>{{$productos->nombre}}</td>
 				<td><a href="{{route('productos.edit',$productos->id)}}" class="btn btn-info">
@@ -39,7 +40,7 @@
 		@endforeach
 		</tbody>
 	</table>
-</div>
+
 
  
 @endsection

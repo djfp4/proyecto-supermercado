@@ -1,13 +1,10 @@
 @extends('layouts.plantilla')
+@section('titulo')
+Ventas
+@endsection
 
 @section('contenido')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Registro de ventas</div>
 
-                <div class="card-body">
                  @include('ventas.modal')
                     <form method="post" action="/ventas">
                         @csrf
@@ -23,7 +20,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Cliente</label>
                             <div class="col-md-6">
                                 <select id="cliente_id" name="cliente_id" class="form-control selectpicker" data-live-search="true">
-                                  <option>Selecciona un cliente</option>
+                                  <option value="0">Selecciona un cliente</option>
                                     @foreach($cliente as $clientes)
                                         <option value="{{$clientes->id}}">{{$clientes->ci_nit}}</option>
                                     @endforeach
@@ -55,10 +52,16 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Precio</label>
                             <div class="col-md-6">
-                                <input id="Precio" type="number" class="form-control" required="">
+                                <input id="Precio" type="number" class="form-control" readonly="">
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label text-md-right">Stock</label>
+                            <div class="col-md-6">
+                                <input id="stock" type="number" class="form-control" readonly="">
+                            </div>
+                        </div>
                         
                         <div class="form-group row" id="comprar">
                             <div class="col-md-12 offset-md-12">
@@ -88,16 +91,12 @@
                         <div class="form-group row" id="guardar">
                             <div class="col-md-12 offset-md-12">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    Comprar
+                                    Vender
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                
 @push('scripts')
 
          <script>
@@ -110,6 +109,8 @@
               $('#cliente_id').change(function(){
                 $('#aCliente').hide();
               });
+
+          
 
 
         $("#producto_id").change(function () {
@@ -124,6 +125,12 @@
               datos=parseInt(data);
               $("#Precio").val(datos);
             }); 
+
+
+              $.post("{{route('total')}}", {"_token": '{{csrf_token()}}' ,id: id }, function(data){
+                datos=parseInt(data);
+                $("#stock").val(datos);
+              }); 
             }
             
 
@@ -141,12 +148,17 @@
   
 
   function agregar(){
+    cliente=$("#cliente_id").val();
     idproducto=$("#producto_id").val();
     producto=$("#producto_id option:selected").text();
     cantidad=$("#cantidad").val();
+    stock=$("#stock").val();
     precio=$("#Precio").val();
-
-    if (cantidad !="" && cantidad > 0 && idproducto!="")
+    if (parseInt(cantidad)>parseInt(stock)) {
+      alert("No existe la cantidad ingresada en stock");
+    }
+    else{
+    if (cantidad !="" && cantidad > 0 && idproducto!="0" && cliente != 0)
     {
        subtotal[cont]=(cantidad*precio);
        total=total+subtotal[cont];
@@ -157,13 +169,11 @@
        $("#total").html(total);
        evaluar();
        $('#tablaventa').append(fila);
-       
-
     }
     else
     {
-      alert("Error al ingresar el detalle del ingreso, revise los datos del articulo")
-    }
+      alert("Debe completar todos los campos")
+    }}
   
   }
   function limpiar(){

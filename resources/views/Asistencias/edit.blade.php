@@ -1,5 +1,7 @@
-@extends("../Layouts.plantilla")
-
+@extends("../Layouts.asistencia")
+@section('titulo')
+Salida
+@endsection
 
 @section("contenido")
 <script type="text/javascript">
@@ -17,9 +19,7 @@
     return patron.test(tecla_final);
   }
 </script>
-	<div class="container">
-		<center><h1>Salida</h1></center>
-		<hr>
+	
 		<form action="/asistencias/1" method="post">
 			@method('put')
 			<div class="form-group row">
@@ -30,10 +30,9 @@
 			<div class="form-group row">
 				<div class="col-md-8 offset-md-4 ">
 					<input type="submit" value="Guardar" class="btn btn-primary col-md-3">
-					<input type="reset" value="Borrar campos" class="btn btn-danger col-md-3">
+					<a href="{{route('asistencias.index')}}" class="btn btn-danger col-md-3">Cancelar</a>
 				</div>
 			</div>
 		</form>
-	</div>
-
+	
 @endsection

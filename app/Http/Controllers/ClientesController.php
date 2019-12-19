@@ -8,11 +8,13 @@ use App\Cliente;
 
 class ClientesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware("verificarCargo");
+        $this->middleware('verificarInventario');
+        $this->middleware('verificarRecursos');
+    }
     public function index()
     {
         $cliente = Cliente::select("id","nombre","paterno","materno","ci_nit")

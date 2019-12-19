@@ -64,6 +64,10 @@ class Kernel extends HttpKernel
 
         'cargo' => \App\Http\Middleware\RolesMiddleware::class,
         'verificarCargo' => \App\Http\Middleware\verificarCargo::class,
+        'verificarGerente' => \App\Http\Middleware\verificarGerente::class,
+        'verificarInventario' => \App\Http\Middleware\verificarInventario::class,
+        'verificarRecursos' => \App\Http\Middleware\verificarRecursos::class,
+        'verificarVentas' => \App\Http\Middleware\verificarVentas::class,
     ];
 
     /**

@@ -1,11 +1,11 @@
-@extends("../Layouts.plantilla")
+@extends("../Layouts.admin")
 
-@section("cabecera")
+@section("titulo")
+Registro de clientes
 @endsection
 
 @section("contenido")
 <div class="container">
-	<center><h1>Registro de empleados</h1></center>
 	<hr>
 
 	<form action="/clientes" method="post">
@@ -32,5 +32,6 @@
 		</div>
 	</form>
 	</div>
+	<hr>
 
 @endsection

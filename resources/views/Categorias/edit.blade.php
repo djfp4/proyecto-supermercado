@@ -1,12 +1,11 @@
 @extends("../Layouts.plantilla")
 
-@section("cabecera")
+@section("titulo")
+Editar categoria
 @endsection
 
 @section("contenido")
-	<div class="container">
-		<center><h1>Editar categoria</h1></center>
-		<hr>
+
 		<form action="/categorias/{{$categoria->id}}" method="post">
 			@method('put')
 			<div class="form-group row">
@@ -24,6 +23,7 @@
 				</div>
 			</div>
 		</form>
-	</div>
+
+		<a href="{{route('categorias.index')}}" class="btn btn-success offset-md-9 col-md-3">Volver</a>
 
 @endsection
